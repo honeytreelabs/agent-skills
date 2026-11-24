@@ -1,2 +1,5 @@
 # AI stuff
 .agent-circus/
+
+# Book sources (copyrighted; keep local only)
+*.epub
