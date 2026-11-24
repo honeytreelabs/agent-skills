@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "honeytreelabs-agent-skills",
+  "description": "Agent skills distilled from classic software engineering books (A Philosophy of Software Design) for AI coding agents.",
+  "owner": {
+    "name": "honeytreelabs",
+    "url": "https://github.com/honeytreelabs"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills",
+      "version": "0.1.0",
+      "source": {
+        "source": "github",
+        "repo": "honeytreelabs/agent-skills"
+      },
+      "description": "Agent skills distilled from classic software engineering books: deep modules and information hiding, effective comments, obvious code.",
+      "homepage": "https://github.com/honeytreelabs/agent-skills",
+      "license": "MIT",
+      "keywords": ["skills", "agents", "software-design", "comments", "naming", "complexity"]
+    }
+  ]
+}

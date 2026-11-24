@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin.json",
+  "name": "agent-skills",
+  "version": "0.1.0",
+  "description": "Agent skills distilled from classic software engineering books (A Philosophy of Software Design) for AI coding agents.",
+  "author": {
+    "name": "honeytreelabs"
+  },
+  "homepage": "https://github.com/honeytreelabs/agent-skills",
+  "repository": "https://github.com/honeytreelabs/agent-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}

@@ -17,16 +17,21 @@
    [`docs/skill-anatomy.md`](docs/skill-anatomy.md): Overview, When to Use,
    Core Workflow, Common Rationalizations, Red Flags, Verification.
 4. If the skill is derived from a book or paper, credit the source in the
-   Overview and add it to the README table.
+   Overview and add it to the README table (the validator enforces the README
+   entry).
 
 ## Validation
 
-Check that every skill has valid frontmatter and that `name` matches the
-directory name:
+Check that every skill has valid frontmatter, that `name` matches the
+directory name, and that every skill is listed in the README:
 
 ```bash
 ./scripts/validate-skills.sh
 ```
+
+CI runs the same check on every pull request and push to `main`
+(`.github/workflows/validate.yml`), along with a JSON sanity check of the
+plugin manifests.
 
 ## Guidelines
 

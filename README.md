@@ -10,12 +10,19 @@ classic software engineering books and hard-won practitioner experience.
 ├── skills/                    # One directory per skill
 │   └── <skill-name>/
 │       ├── SKILL.md           # Required: the skill definition
-│       ├── references/        # Optional: long checklists and reference docs
-│       └── scripts/           # Optional: runnable helpers
+│       └── references/        # Optional: long checklists and reference docs
+├── .claude-plugin/            # Claude Code plugin + marketplace manifests
+├── .github/workflows/         # CI: validates skills on every PR/push
 ├── docs/
 │   └── skill-anatomy.md       # How to write a skill in this repo
-└── CONTRIBUTING.md
+├── scripts/
+│   └── validate-skills.sh     # Frontmatter + catalog consistency checks
+├── CONTRIBUTING.md
+└── LICENSE
 ```
+
+A `skills/<name>/scripts/` directory is allowed for runnable helpers but only
+exists when a skill needs one.
 
 ## Available skills
 
@@ -50,8 +57,15 @@ triggers `effective-comments`, naming a variable or deciphering unclear code
 triggers `obvious-code`, designing a new module triggers
 `philosophy-of-software-design`.
 
-Prefer a native integration? For Claude Code, this repository can also be
-installed as a plugin.
+Prefer a native integration? Install as a Claude Code plugin:
+
+```
+/plugin marketplace add honeytreelabs/agent-skills
+/plugin install agent-skills@honeytreelabs-agent-skills
+```
+
+> If the marketplace clone fails over SSH, use the full HTTPS URL in the
+> first command: `/plugin marketplace add https://github.com/honeytreelabs/agent-skills.git`
 
 ## Writing a new skill
 

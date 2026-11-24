@@ -1,5 +1,9 @@
 # AI stuff
 .agent-circus/
+.agent-shell/
+
+# Working artifacts (plans/task lists stay local)
+tasks/
 
 # Book sources (copyrighted; keep local only)
 *.epub
