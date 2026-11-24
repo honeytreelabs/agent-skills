@@ -23,6 +23,7 @@ classic software engineering books and hard-won practitioner experience.
 |---|---|---|
 | [`philosophy-of-software-design`](skills/philosophy-of-software-design/SKILL.md) | *A Philosophy of Software Design* (John Ousterhout, 2nd ed.) | Managing complexity: deep modules, information hiding, strategic programming, design it twice, comments first |
 | [`effective-comments`](skills/effective-comments/SKILL.md) | *A Philosophy of Software Design*, Ch. 13 | Comments that add non-obvious information: precision vs. intuition, interface vs. implementation docs, cross-module design notes |
+| [`obvious-code`](skills/obvious-code/SKILL.md) | *A Philosophy of Software Design*, Ch. 14+18 | Precise, consistent names and code that is obvious on first reading: naming rules, design smells, formatting, reader expectations |
 
 ## Quick Start
 
@@ -40,11 +41,13 @@ Or grab individual skills:
 ```bash
 npx skills add honeytreelabs/agent-skills --skill philosophy-of-software-design   # deep modules, information hiding, strategic design
 npx skills add honeytreelabs/agent-skills --skill effective-comments              # comments that add non-obvious information
+npx skills add honeytreelabs/agent-skills --skill obvious-code                    # precise names, code obvious on first reading
 ```
 
 Once installed, the skills are discovered by your agent automatically and
 activate based on what you are doing — writing interface documentation
-triggers `effective-comments`, designing a new module triggers
+triggers `effective-comments`, naming a variable or deciphering unclear code
+triggers `obvious-code`, designing a new module triggers
 `philosophy-of-software-design`.
 
 Prefer a native integration? For Claude Code, this repository can also be
@@ -67,8 +70,8 @@ an existing skill as a starting point. Rules of thumb:
 Planned candidates for future skills derived from books:
 
 - *A Philosophy of Software Design*, Ch. 12+15 — why comments are worth writing, comments-first as a design tool (complements `effective-comments`)
-- *A Philosophy of Software Design*, Ch. 14+18 — choosing names, code should be obvious
 - *A Philosophy of Software Design*, Ch. 16+17 — modifying existing code, consistency
+  (consistency is partially covered by `obvious-code`; this skill would extend it)
 - *The Pragmatic Programmer* — DRY, orthogonality, tracer bullets, boilerplate
 - *Working Effectively with Legacy Code* — seams, characterization tests
 - *Refactoring* (Fowler) — refactoring catalog, code smells → refactorings

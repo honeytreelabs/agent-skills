@@ -1,98 +1,78 @@
-# Implementation Plan: `effective-comments` skill
+# Implementation Plan: `obvious-code` skill
 
-Source spec: Chapter 13 of *A Philosophy of Software Design* (2nd ed.),
-extracted from `/workspace/a-philosophy-of-software-design-2nd-edition-2nbsped-173210221x-9781732102217.epub` (OEBPS/part0017.xhtml)
+Source spec: Chapters 14 ("Choosing Names") and 18 ("Code Should be Obvious")
+of *A Philosophy of Software Design* (2nd ed.), extracted from
+`/workspace/a-philosophy-of-software-design-2nd-edition-2nbsped-173210221x-9781732102217.epub`
+(OEBPS/part0018.xhtml and part0022.xhtml)
 
 ## Overview
 
-Create a new agent skill, `effective-comments`, that distills Chapter 13
-("Comments Should Describe Things that Aren't Obvious from the Code") into an
-actionable workflow for writing and reviewing comments. The guiding principle:
-comments must add information that isn't obvious from the code — either at a
-lower level of detail (**precision**) or a higher level (**intuition**). The
-skill covers the four comment categories, interface-vs-implementation
-separation, what/why-not-how implementation comments, and cross-module design
-notes.
+Create a new agent skill, `obvious-code`, combining Chapter 14 (choosing
+precise, consistent names) and Chapter 18 (making code obvious). These pair
+naturally: the chapter on obviosity explicitly names good names (Ch. 14) and
+consistency (Ch. 17) as the two most important techniques for making code
+obvious. The skill's guiding test: a first-time reader's quick, unreflective
+guess about what code does should be correct.
 
 ## Architecture Decisions
 
-- **Name:** `effective-comments` (lowercase, hyphenated, matches directory).
-- **Structure:** `SKILL.md` + two references. The chapter's code examples
-  (bad→good comment pairs) exceed 100 lines, so they go to
-  `references/comment-examples.md`; the review checklist goes to
-  `references/comment-checklist.md`. No `scripts/` — nothing runnable needed.
-- **Scope boundary:** Chapter 12 (the four excuses) and Chapter 15
-  (comments-first as design tool) are covered by the existing
-  `philosophy-of-software-design` skill; this skill focuses on *what and how*
-  to comment (Ch. 13). Cross-reference, don't duplicate.
-- **Core workflow** (the spine of SKILL.md):
-  1. Adopt comment conventions (use doc-tool conventions if available:
-     Javadoc/Doxygen/godoc)
-  2. Categorize the comment: interface / data-structure member /
-     implementation / cross-module — each has different rules
-  3. Choose the level of detail: precision (lower-level) or intuition
-     (higher-level) — never the same level as the code
-  4. Interface comments define the abstraction: behavior, args, return,
-     side effects, exceptions, preconditions — no implementation details
-  5. Implementation comments: what and why, not how
-  6. Cross-module decisions get one authoritative home (design notes file,
-     enum declarations) referenced from each dependent site
-- **Rationalizations & red flags** pulled straight from the chapter:
-  repeating-the-code comments, same-words-as-the-name comments, implementation
-  documentation contaminating interfaces, vague variable docs, nouns-not-verbs.
+- **Name:** `obvious-code` (short, states the outcome; naming is covered as
+  the primary technique, made explicit in the description triggers).
+- **Structure:** `SKILL.md` + two references (same pattern as
+  `effective-comments`). `references/naming-examples.md` holds the chapters'
+  bad→good pairs (Sprite `block` bug, `getCount`, `blinkStatus`, `Pair`
+  containers, the Go short-names debate). `references/obviousness-checklist.md`
+  is the review checklist. No `scripts/`.
+- **Scope boundary:** Ch. 17 (consistency) is referenced but not duplicated;
+  comment-writing rules live in `effective-comments`; interface design lives
+  in `philosophy-of-software-design`. This skill covers names + obviousness
+  techniques + obscurity causes (event-driven code, generic containers,
+  declaration/allocation mismatches, violated reader expectations).
+- **Core workflow:**
+  1. Judge obviousness from the reader's perspective (reviews, not author)
+  2. Name for precision: create an image; avoid vague names; don't settle
+     for "reasonably close"
+  3. Name consistently: one name per purpose, prefixes for near-twins,
+     `i`/`j` loop conventions
+  4. Right-size names: avoid extra words, no type prefixes, drop class-name
+     repetition; longer names for greater distance from declaration
+  5. Treat "hard to pick name" as a design smell — consider refactorings
+  6. Format for obviousness: whitespace to expose block structure
+  7. Compensate for unavoidable obscurity: comments for event handlers,
+     expectation-violating code, and paired declaration/allocation types
 
 ## Task List
 
-### Phase 1: Skill skeleton
-- [ ] Task 1: Create `skills/effective-comments/SKILL.md` with frontmatter
-      (`name`, `description` with what+when triggers, <1024 chars), Overview
-      (credit Ousterhout Ch. 13), and When to Use (triggers + exclusions,
-      pointing to `philosophy-of-software-design` for adjacent chapters).
-      **Dependencies:** None. **Scope:** S (1 file)
+### Phase 1: Skeleton
+- [ ] Task 1: `skills/obvious-code/SKILL.md` frontmatter, Overview, When to
+      Use (triggers + exclusions). **Dependencies:** None. **Scope:** S
 
 ### Phase 2: Core content
-- [ ] Task 2: Write the Core Workflow section (the 6 steps above, each with
-      concrete rules and ASCII guidance where helpful) plus Common
-      Rationalizations and Red Flags sections from the chapter.
-      **Dependencies:** Task 1. **Scope:** S (1 file)
-
-- [ ] Task 3: Create `references/comment-examples.md` with the chapter's
-      bad→good comment pairs: repeating-code comments, name-echoing comments,
-      vague variable docs (offset, lineWidths), nouns-vs-verbs
-      (receivedValidHeartbeat), high-level loop comment, IndexLookup class
-      interface rewrite, isReady method rewrite, Status enum cross-module
-      comment, designNotes pattern. Each pair annotated with *why* the bad
-      version fails. **Dependencies:** Task 1. **Scope:** S (1 file)
-
-- [ ] Task 4: Create `references/comment-checklist.md` — a review checklist
-      mirroring the chapter's tests: "could someone who never saw the code
-      write this comment?", units/boundaries/null/ownership/invariants for
-      variables, interface-completeness for methods, implementation-leak
-      check, cross-module discoverability. **Dependencies:** Task 1.
-      **Scope:** S (1 file)
+- [ ] Task 2: Core Workflow, Rationalizations, Red Flags (Vague Name, Hard to
+      Pick Name, Nonobvious Code — the book's own red flags).
+      **Dependencies:** Task 1. **Scope:** S
+- [ ] Task 3: `references/naming-examples.md` — bad→good pairs from both
+      chapters, annotated. **Dependencies:** Task 1. **Scope:** S
+- [ ] Task 4: `references/obviousness-checklist.md`. **Dependencies:** Task 1.
+      **Scope:** S
 
 ### Phase 3: Integration & verification
-- [ ] Task 5: Add Verification section to SKILL.md (evidence-checkable exit
-      criteria referencing the checklist) and update `README.md` skill table
-      + roadmap. **Dependencies:** Tasks 2–4. **Scope:** S (2 files)
-
-- [ ] Task 6: Run `./scripts/validate-skills.sh`, self-review against the
-      skill-anatomy doc, commit.
+- [ ] Task 5: Verification section in SKILL.md; README catalog + roadmap
+      update (remove Ch. 14+18 entry, add Ch. 17 note). **Dependencies:**
+      Tasks 2–4. **Scope:** S
+- [ ] Task 6: Validate, self-review against skill-anatomy, commit.
       **Dependencies:** Task 5. **Scope:** S
 
 ## Checkpoint: Complete
-- [ ] Validator passes for both skills
-- [ ] SKILL.md < ~160 lines; examples and checklist live in references/
-- [ ] Every claim traces back to Chapter 13 content (no invented rules)
+- [ ] Validator passes for all three skills
+- [ ] Every rule traces to Ch. 14 or Ch. 18
 - [ ] Committed
 
 ## Risks and Mitigations
 | Risk | Impact | Mitigation |
 |------|--------|------------|
-| SKILL.md bloats into a chapter summary | Medium | Keep workflow imperative and terse; push examples to references |
-| Description too generic to trigger | Medium | Include concrete triggers: writing interface docs, reviewing comments, vague names/units |
-| Overlap with existing skill's comments-first content | Low | Explicit "When NOT to use" + cross-reference |
+| Overlap with `effective-comments` (names in comments vs. names) | Low | Naming here is about identifiers; comments about docs. Cross-reference both ways |
+| Generic name `obvious-code` hard to trigger | Medium | Description carries concrete triggers: naming variables/methods, vague names, unclear code, review feedback |
 
 ## Open Questions
-- Skill name: `effective-comments` vs. `comments-describe-the-nonobvious`
-  (closer to the chapter's principle, longer). Default: `effective-comments`.
+- None. Name confirmed as `obvious-code` per plan.
