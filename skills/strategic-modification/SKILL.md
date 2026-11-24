@@ -1,6 +1,6 @@
 ---
 name: strategic-modification
-description: Modifies existing code while keeping the design clean and conventions consistent, following John Ousterhout's "A Philosophy of Software Design" chapters 16 and 17. Use when changing existing code, fixing bugs in unfamiliar modules, adding features to a mature system, maintaining comments while editing, deciding whether to refactor or quick-fix, or reviewing a change for consistency with existing conventions.
+description: Modifies existing code while keeping the design clean and conventions consistent, following John Ousterhout's "A Philosophy of Software Design" chapters 16 and 17. Use when changing existing code, fixing bugs in unfamiliar modules, adding features to a mature system, deciding between a quick fix and a refactoring, maintaining comments while editing so they don't go stale, moving information from commit messages into code, diff-checking changes before committing, or reviewing a change for consistency with existing conventions.
 ---
 
 # Strategic Modification
@@ -131,8 +131,8 @@ caught cheapest.
   name for different concepts, a pattern that doesn't fit) creates confusion.
   Consistency works only when "if it looks like an x, it really is an x."
 
-Run `references/modification-checklist.md` before finishing; worked examples
-are in `references/consistency-examples.md`.
+Run [references/modification-checklist.md](references/modification-checklist.md) before finishing; worked examples
+are in [references/consistency-examples.md](references/consistency-examples.md).
 
 ## Common Rationalizations
 
@@ -174,4 +174,4 @@ Before considering the change complete, confirm:
 - [ ] External documentation is referenced, not duplicated
 - [ ] New code follows the conventions of its surrounding file/project; any convention upgrade converted all uses (both upgrade questions answered yes)
 - [ ] Dissimilar things were *not* forced into a common shape
-- [ ] The full `references/modification-checklist.md` was run
+- [ ] The full [references/modification-checklist.md](references/modification-checklist.md) was run

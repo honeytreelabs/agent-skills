@@ -1,0 +1,51 @@
+{
+  "prompts": {
+    "positive": [
+      "I'm designing a new module for our payment service. How should I structure the interface?",
+      "This class has 14 methods and the callers all need to know the internal call ordering. What's wrong and how do I fix it?",
+      "Should I split this 800-line class into 12 smaller classes, or keep it as one deep module?",
+      "Every config option is a constructor parameter and callers pass ten flags just to construct it. Review this interface design.",
+      "We keep making small quick fixes and the design degrades each time. Should we program tactically or invest strategically?",
+      "Where should exceptions from this parser be handled, and how do I reduce the number of error cases callers must catch?"
+    ],
+    "negative": [
+      "Compose a short haiku about autumn rain in Japanese.",
+      "Set up a Kubernetes cluster for staging deployments.",
+      "Book a flight from Berlin to Lisbon next Friday morning."
+    ]
+  },
+  "cases": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "Review the module in src/order_total.rs: callers must call compute_subtotal() before compute_tax() and must pass the same currency code to both, or totals are silently wrong. Redesign the interface so these constraints are impossible to violate, then implement it.",
+      "expectations": [
+        "The agent identifies the shallow interface: callers must know ordering and cross-call constraints (temporal coupling and information leakage).",
+        "The proposed interface requires fewer things for callers to know (e.g., a single method or a type that carries the currency internally).",
+        "The agent wrote or updated interface comments describing the new abstraction without exposing implementation details.",
+        "The final design defines error cases out of existence where possible rather than adding exceptions."
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "execution",
+      "prompt": "src/config.rs takes 11 constructor parameters that callers mostly pass with the same default values. Refactor to reduce the complexity callers face, keeping the change strategic rather than tactical.",
+      "expectations": [
+        "The agent recognizes configuration parameters as complexity pushed upward onto callers.",
+        "The refactor moves defaults inside the module (pull complexity downward) rather than adding a config-object wrapper that keeps the same 11 knobs.",
+        "The agent did not merely add a pass-through layer with the same abstractions at a different level.",
+        "The change is verified by running the existing tests or adding a test for the new constructor."
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "dialogue",
+      "prompt": "My teammate says we should split every class into tiny single-method classes because small classes are cleaner. Convince me whether this is right, using solid reasoning.",
+      "expectations": [
+        "The agent rejects classitis with the depth argument: many tiny classes produce shallow modules whose interfaces cost more than the functionality they hide.",
+        "The agent explains complexity symptoms (change amplification, cognitive load, unknown unknowns) as the yardstick, not class count.",
+        "The agent acknowledges when splitting IS right (truly separable abstractions) instead of arguing the absolute opposite."
+      ]
+    }
+  ]
+}

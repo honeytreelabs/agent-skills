@@ -1,0 +1,50 @@
+{
+  "prompts": {
+    "positive": [
+      "Write the docstring for this method that parses HTTP headers.",
+      "Review the comments in this pull request — half of them just restate the code.",
+      "How should I document this function's return value, including what null means?",
+      "This class comment describes the internal RPC protocol it uses. Is that the right place for it?",
+      "What information should a method's interface comment contain?",
+      "A reviewer flagged our comments that just repeat what the code already says. How should comments be written so they add real information?"
+    ],
+    "negative": [
+      "Compose a short haiku about autumn rain in Japanese.",
+      "Set up a Kubernetes cluster for staging deployments.",
+      "Book a flight from Berlin to Lisbon next Friday morning."
+    ]
+  },
+  "cases": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "src/retry.py has this field: `attempts = 3  # attempts count`. Improve the comment and name so a first-time reader knows the exact meaning without reading the code.",
+      "expectations": [
+        "The new comment states units/scope precisely: what one 'attempt' is and what the count covers (e.g., retries after the initial try).",
+        "The agent does not merely repeat the variable name in the comment.",
+        "Boundary semantics are documented (does 3 mean 3 total tries or 3 retries?).",
+        "If the name was changed, the new name is more precise (e.g., maxRetries vs attempts)."
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "execution",
+      "prompt": "In src/client.ts, the method fetchUser(id) has an interface comment that explains it uses a two-phase RPC with an internal retry queue. Move implementation details out of the interface comment and into the body where they belong, keeping the interface comment complete for callers.",
+      "expectations": [
+        "The rewritten interface comment covers behavior, arguments, return value, side effects, and exceptions without internal RPC/retry-queue details.",
+        "Implementation narrative is relocated into the method body as implementation comments (what/why, not how).",
+        "The agent does not delete information callers need (e.g., blocking behavior, error cases)."
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "dialogue",
+      "prompt": "My team writes one comment above every single line of code explaining what it does. They say it makes the code readable. Is that a good practice?",
+      "expectations": [
+        "The agent explains that same-level comments repeat the code and add no information, per the non-obviousness test.",
+        "The agent gives the correct alternative: higher-level block comments describing intent, lower-level comments adding precision where code can't.",
+        "The agent does not endorse line-per-line commenting."
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: obvious-code
-description: Chooses precise, consistent names and writes code whose meaning is obvious on first reading, following John Ousterhout's "A Philosophy of Software Design" chapters 14 and 18. Use when naming variables, methods, or classes, renaming vague identifiers, making code easier to understand, receiving review feedback like "what does this do?", or deciding how to handle unavoidably obscure code such as event handlers.
+description: Chooses precise, consistent names and writes code whose meaning is obvious on first reading, following John Ousterhout's "A Philosophy of Software Design" chapters 14 and 18. Use when naming variables, methods, or classes, renaming vague identifiers, making code easier to understand, receiving review feedback like "what does this do?", or deciding how to handle unavoidably obscure code such as event handlers or generic containers.
 ---
 
 # Obvious Code
@@ -135,8 +135,8 @@ document the missing information at the point of confusion:
 - Prefer constructs that conform to expectations; if you deviate, document.
   Software should be **designed for ease of reading, not ease of writing**.
 
-Run `references/obviousness-checklist.md` before finishing; worked bad→good
-examples are in `references/naming-examples.md`.
+Run [references/obviousness-checklist.md](references/obviousness-checklist.md) before finishing; worked bad→good
+examples are in [references/naming-examples.md](references/naming-examples.md).
 
 ## Common Rationalizations
 
@@ -173,7 +173,7 @@ examples are in `references/naming-examples.md`.
 After writing or reviewing the code, confirm:
 
 - [ ] A first-time reader's quick guess at each name's meaning would be correct, with no declaration or docs in view
-- [ ] No vague names remain in the new/changed code (checklist scan of `references/obviousness-checklist.md`)
+- [ ] No vague names remain in the new/changed code (checklist scan of [references/obviousness-checklist.md](references/obviousness-checklist.md))
 - [ ] Booleans are predicates; sentinel values are named for their meaning
 - [ ] Recurring concepts use one consistent name; near-twins carry distinguishing prefixes
 - [ ] No filler words, type prefixes, or class-name repetition in names

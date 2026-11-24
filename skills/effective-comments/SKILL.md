@@ -1,6 +1,6 @@
 ---
 name: effective-comments
-description: Writes and reviews code comments that add information not obvious from the code, following John Ousterhout's "A Philosophy of Software Design" chapter 13. Use when writing interface/class/method documentation, documenting variables or fields, explaining tricky implementation blocks, deciding what deserves a comment, or reviewing whether existing comments are useful.
+description: Writes and reviews code comments that add information not obvious from the code, following John Ousterhout's "A Philosophy of Software Design" chapter 13. Use when writing interface/class/method documentation, documenting variables, fields, or return values, explaining tricky implementation blocks, deciding what deserves a comment, or reviewing whether existing comments are useful.
 ---
 
 # Effective Comments
@@ -142,9 +142,9 @@ For every comment, ask:
   the author. If a reviewer says something isn't obvious, don't argue —
   clarify it, in comments or in code.
 
-Run the full `references/comment-checklist.md` before considering the work
+Run the full [references/comment-checklist.md](references/comment-checklist.md) before considering the work
 done. Worked bad→good examples for every rule above are in
-`references/comment-examples.md`.
+[references/comment-examples.md](references/comment-examples.md).
 
 ## Common Rationalizations
 
@@ -189,4 +189,4 @@ After writing or reviewing comments, confirm:
 - [ ] A caller could use the module from declarations + comments alone, without reading bodies
 - [ ] Implementation comments describe what and why, at a higher level than the code; no line-by-line narration
 - [ ] Cross-module decisions have one authoritative, discoverable home with pointers from dependent sites
-- [ ] The full `references/comment-checklist.md` was run on the new/changed comments
+- [ ] The full [references/comment-checklist.md](references/comment-checklist.md) was run on the new/changed comments

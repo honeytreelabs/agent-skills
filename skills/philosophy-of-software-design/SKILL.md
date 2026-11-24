@@ -1,6 +1,6 @@
 ---
 name: philosophy-of-software-design
-description: Applies John Ousterhout's "A Philosophy of Software Design" principles to manage complexity when designing modules, interfaces, and abstractions. Use when creating new modules or classes, designing APIs, decomposing systems into components, reviewing whether code is deep enough, deciding where to handle errors, or refactoring to reduce change amplification and cognitive load.
+description: Applies John Ousterhout's "A Philosophy of Software Design" principles to manage complexity when designing modules, interfaces, and abstractions. Use when creating new modules or classes, designing APIs, decomposing systems into components, splitting or merging existing code, reviewing whether code is deep enough or interfaces force callers to know internal details, choosing strategic over tactical programming, deciding where to handle errors, or refactoring to reduce change amplification and cognitive load.
 ---
 
 # Philosophy of Software Design
@@ -151,4 +151,4 @@ After designing (and again after implementing), confirm:
 - [ ] No pass-through methods or layers remain in the new code
 - [ ] Adding a plausible next requirement touches ideally one module
 - [ ] The number of exceptions/cases a caller must handle is minimal, and edge cases are defined as normal behavior where possible
-- [ ] The full `references/design-checklist.md` was run with items checked off
+- [ ] The full [references/design-checklist.md](references/design-checklist.md) was run with items checked off

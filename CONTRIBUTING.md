@@ -23,15 +23,23 @@
 ## Validation
 
 Check that every skill has valid frontmatter, that `name` matches the
-directory name, and that every skill is listed in the README:
+directory name, that every skill is listed in the README, and that all
+relative links resolve:
 
 ```bash
 ./scripts/validate-skills.sh
 ```
 
-CI runs the same check on every pull request and push to `main`
+Check that prompts route to the right skill and descriptions don't collide:
+
+```bash
+node scripts/eval-triggers.js
+```
+
+CI runs both on every pull request and push to `main`
 (`.github/workflows/validate.yml`), along with a JSON sanity check of the
-plugin manifests.
+plugin manifests. See [`evals/README.md`](evals/README.md) for the full
+evaluation model, including manual behavioral grading.
 
 ## Guidelines
 

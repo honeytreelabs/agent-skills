@@ -1,0 +1,50 @@
+{
+  "prompts": {
+    "positive": [
+      "What should I name this boolean flag that turns blinking on and off?",
+      "Review this code for readability — readers keep misinterpreting what our 'data' variable contains. Review the naming: should the name change to something more precise?",
+      "The methods socket() and sock() in our codebase are constantly confused. Suggest better names.",
+      "Is it okay to use single-letter variable names like n and i everywhere?",
+      "Should this method return a generic Pair<Integer, Boolean> container, or define a type with meaningful names for its fields?",
+      "Code review feedback says my function is 'not obvious'. What does that mean and how do I fix it?"
+    ],
+    "negative": [
+      "Compose a short haiku about autumn rain in Japanese.",
+      "Set up a Kubernetes cluster for staging deployments.",
+      "Book a flight from Berlin to Lisbon next Friday morning."
+    ]
+  },
+  "cases": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "src/editor.js contains `private boolean blinkStatus = true;` with the comment '// Blink state: true when cursor visible.'. Rename the variable so the name itself reveals what true means, and adjust the comment appropriately.",
+      "expectations": [
+        "The rename is to a predicate-style name (e.g., cursorVisible), not a longer synonym of blinkStatus.",
+        "The name reveals what true means without reading the comment.",
+        "The comment no longer needs to carry the meaning the name now carries (or is updated to add non-obvious information only).",
+        "All usages of the old name were updated; no stray references remain."
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "execution",
+      "prompt": "In src/geo.ts, function distance(a, b) returns Pair<number, number> where callers must consult docs to know the fields are (kilometers, minutes). Replace the generic container with a purpose-built type and update callers.",
+      "expectations": [
+        "A specialized type with meaningful field names replaces Pair (ease of reading over ease of writing).",
+        "Field names convey units or meaning (e.g., kilometers, travelMinutes) without consulting external docs.",
+        "All call sites are updated and the code compiles/type-checks."
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "dialogue",
+      "prompt": "Our Go-style guide mandates single-letter variable names everywhere. A teammate wants to apply 'n' to counts, lengths, and indexes alike. What's your advice?",
+      "expectations": [
+        "The agent distinguishes acceptable short names (loop variables, small visible scope) from ambiguous reuse of one name for several meanings.",
+        "The agent explains the reader-not-writer standard: readability is judged by readers, and consistency is what makes short names safe.",
+        "The agent mentions that longer names are warranted as declaration-to-use distance grows."
+      ]
+    }
+  ]
+}

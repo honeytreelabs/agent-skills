@@ -1,0 +1,52 @@
+{
+  "prompts": {
+    "positive": [
+      "I need to fix a bug and add a feature to existing code I've never touched. How should I approach the change?",
+      "Should I do a quick fix for this bug or refactor first? The deadline is Friday.",
+      "How do I maintain comments in code I'm editing so they don't go stale?",
+      "I documented the root cause of this bug in the commit message. Is that good enough?",
+      "My team's convention is snake_case but I wrote my new function in camelCase. Should I follow the project's existing conventions or keep my style?",
+      "Review my diff: did I leave debugging code or stale comments anywhere?",
+      "The explanation for this subtle bug fix only lives in the commit message. Where should it go?"
+    ],
+    "negative": [
+      "Compose a short haiku about autumn rain in Japanese.",
+      "Set up a Kubernetes cluster for staging deployments.",
+      "Book a flight from Berlin to Lisbon next Friday morning."
+    ]
+  },
+  "cases": [
+    {
+      "id": 1,
+      "kind": "execution",
+      "prompt": "In src/parser.go there is a special case: if the input starts with a UTF-8 BOM, strip it before tokenizing, currently handled by an ad-hoc check duplicated at three call sites. Fix it strategically: absorb the handling into the tokenizer so callers never see BOMs, and make sure comments stay accurate.",
+      "expectations": [
+        "The three duplicated ad-hoc checks are consolidated into one place (the tokenizer), not patched individually.",
+        "The agent frames this as removing special cases / pulling complexity downward, not just adding a helper function.",
+        "Comments affected by the change are updated; no stale comment describes the old three-site behavior.",
+        "The agent verified the change (tests run or added)."
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "execution",
+      "prompt": "You have two hours before a release freeze and a bug fix that ideally belongs inside a three-day refactor of src/billing.rs. Decide and implement the right approach for now, leaving the codebase as clean as honestly possible.",
+      "expectations": [
+        "The agent chooses the smallest clean change that does not degrade the design further, rather than the absolute minimal hack.",
+        "The agent does NOT start the three-day refactor under the deadline (constraint honesty).",
+        "The deferred refactoring is recorded where it will be seen (code comment at the compromise point and/or tracking issue), not only in the commit message.",
+        "The agent states explicitly what was deferred and why."
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "dialogue",
+      "prompt": "I found a 'better' logging convention than what our project uses everywhere. I want to start using it in my new files. Any objection?",
+      "expectations": [
+        "The agent objects: a better idea is not a sufficient excuse to introduce inconsistency.",
+        "The agent presents the two upgrade questions (new information? worth converting all existing uses?) as the path to changing conventions.",
+        "The agent notes 'when in Rome': follow existing conventions unless both upgrade questions are yes, in which case convert everything with no trace of the old way."
+      ]
+    }
+  ]
+}

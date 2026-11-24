@@ -41,6 +41,14 @@ for skill_dir in "$root"/skills/*/; do
     fail "skills/$name is not mentioned in README.md"
   fi
 
+  # Relative links in SKILL.md must resolve to files in the repo.
+  while IFS= read -r link; do
+    target="$(dirname "$skill")/$link"
+    if [[ ! -f "$target" ]]; then
+      fail "skills/$name/SKILL.md links to missing file: $link"
+    fi
+  done < <(grep -o '](\([^)#][^)]*\))' "$skill" | sed 's/^](//; s/)$//')
+
   for d in scripts references; do
     if [[ -d "$skill_dir/$d" ]] && [[ -z "$(ls -A "$skill_dir/$d")" ]]; then
       fail "skills/$name/$d is empty"

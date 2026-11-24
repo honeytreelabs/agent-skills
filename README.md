@@ -12,11 +12,14 @@ classic software engineering books and hard-won practitioner experience.
 │       ├── SKILL.md           # Required: the skill definition
 │       └── references/        # Optional: long checklists and reference docs
 ├── .claude-plugin/            # Claude Code plugin + marketplace manifests
-├── .github/workflows/         # CI: validates skills on every PR/push
+├── .github/workflows/         # CI: validates skills + trigger evals on every PR/push
 ├── docs/
 │   └── skill-anatomy.md       # How to write a skill in this repo
+├── evals/                     # Per-skill trigger prompts + behavioral cases
+│   └── <skill-name>/evals.json
 ├── scripts/
-│   └── validate-skills.sh     # Frontmatter + catalog consistency checks
+│   ├── validate-skills.sh     # Frontmatter, links, catalog, manifest checks
+│   └── eval-triggers.js       # Trigger/routing evals (deterministic)
 ├── CONTRIBUTING.md
 └── LICENSE
 ```
